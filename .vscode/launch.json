@@ -16,6 +16,43 @@
             // "initCommands": [ // add commands to send to the debugger (LLDB)
               //   "settings set target.process.follow-fork-mode child"
               // ],
-        }
+        },
+				{
+					"name": "lldb - constants",
+					"request": "launch",
+					"args": [],
+					"cwd": "${workspaceFolder}/01_Constants",  
+					"type":  "lldb", // install CodeLLDB
+					"program": "${workspaceFolder}/01_Constants/bin/main", // warnings if no default is given
+					"console": "integratedTerminal",
+					"preLaunchTask": "build", // THIS IS IMPORTANT
+			},
+			{
+					"name": "lldb - mainShared",
+					"request": "launch",
+					"args": [],
+					"cwd": "${workspaceFolder}/02_SmartPointers",  
+					"type":  "lldb", // install CodeLLDB
+					"program": "${workspaceFolder}/02_SmartPointers/bin/mainShared", // warnings if no default is given
+					"console": "integratedTerminal",
+					"preLaunchTask": "build", // THIS IS IMPORTANT
+					// "initCommands": [ // add commands to send to the debugger (LLDB)
+						//   "settings set target.process.follow-fork-mode child"
+						// ],
+			},
+			{
+				"name": "lldb - mainUnique",
+				"request": "launch",
+				"args": [],
+				"cwd": "${workspaceFolder}/02_SmartPointers",  
+				"type":  "lldb", // install CodeLLDB
+				"program": "${workspaceFolder}/02_SmartPointers/bin/mainUnique", // warnings if no default is given
+				"console": "integratedTerminal",
+				"preLaunchTask": "build", // THIS IS IMPORTANT
+				// "initCommands": [ // add commands to send to the debugger (LLDB)
+					//   "settings set target.process.follow-fork-mode child"
+					// ],
+		}
+
     ]
 }

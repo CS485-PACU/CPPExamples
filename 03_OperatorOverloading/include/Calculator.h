@@ -14,36 +14,35 @@
 
 class Calculator {
 
-	public:
+public:
 
-		Calculator();
-		Calculator(double value);
-		Calculator(const Calculator &rcOther);
+	Calculator ();
+	Calculator (double value);
+	Calculator (const Calculator& rcOther);
+	~Calculator ();
 
-		Calculator& operator=(double value);
-		Calculator& operator=(Calculator cOther);
+	Calculator& operator= (double value);
+	Calculator& operator= (Calculator cOther);
 
-		~Calculator();
+	Calculator& operator+= (double rhs);
+	Calculator& operator+= (const std::string& rcKey);
+	Calculator& operator+= (const Calculator& rcRHS);
 
-		Calculator& operator+=(double rhs);
-		Calculator& operator+=(const std::string &rcKey);
-		Calculator& operator+=(const Calculator &rcRHS);
+	double operator () () const; // function call operator
 
-		friend Calculator operator+(Calculator cLHS, const Calculator &rcRHS);
-		friend Calculator operator+(Calculator cLHS, double rhs);
+	void clear ();
 
-		double operator()() const;
+	// https://en.cppreference.com/w/cpp/language/operators#Array_subscript_operator
+	const double& operator[] (const std::string& rcKey) const;
+	double store (const std::string& rcKey);
 
-		void clear();
-
-		// https://en.cppreference.com/w/cpp/language/operators#Array_subscript_operator
-
-		const double& operator[](const std::string &rcKey) const;
-		double store(const std::string &rcKey);
-
-	private:
-		double *mpRunningTotal = nullptr;
-		//https://en.cppreference.com/w/cpp/container/unordered_map
-		std::unordered_map<std::string, double> mcVars;
+private:
+	double* mpRunningTotal = nullptr;
+	//https://en.cppreference.com/w/cpp/container/unordered_map
+	std::unordered_map<std::string, double> mcVars;
 
 };
+
+// non-member, non-friend functions (also called free functions)
+Calculator operator+ (Calculator cLHS, const Calculator& rcRHS);
+Calculator operator+ (Calculator cLHS, double rhs);

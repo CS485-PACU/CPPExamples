@@ -19,7 +19,7 @@
 //
 // Returned:    None
 //***************************************************************************
-Calculator::Calculator() {
+Calculator::Calculator () {
 
 }
 
@@ -32,7 +32,7 @@ Calculator::Calculator() {
 //
 // Returned:    None
 //***************************************************************************
-Calculator::Calculator(double value) {
+Calculator::Calculator (double value) {
 	mpRunningTotal = new double;
 	*mpRunningTotal = value;
 }
@@ -46,7 +46,7 @@ Calculator::Calculator(double value) {
 //
 // Returned:    None
 //***************************************************************************
-Calculator::Calculator(const Calculator &rcOther){
+Calculator::Calculator (const Calculator& rcOther) {
 	if (nullptr != rcOther.mpRunningTotal) {
 		mpRunningTotal = new double;
 		*mpRunningTotal = *rcOther.mpRunningTotal;
@@ -63,7 +63,7 @@ Calculator::Calculator(const Calculator &rcOther){
 //
 // Returned:    None
 //***************************************************************************
-Calculator& Calculator::operator=(double value) {
+Calculator& Calculator::operator= (double value) {
 	if (nullptr == mpRunningTotal) {
 		mpRunningTotal = new double;
 	}
@@ -80,9 +80,10 @@ Calculator& Calculator::operator=(double value) {
 //
 // Returned:    None
 //***************************************************************************
-Calculator& Calculator::operator=(Calculator cOther){
-	std::swap(mpRunningTotal, cOther.mpRunningTotal);
-	mcVars = cOther.mcVars;
+Calculator& Calculator::operator= (Calculator cOther) {
+	// copy and swap
+	std::swap (mpRunningTotal, cOther.mpRunningTotal);
+	std::swap (mcVars, cOther.mcVars);
 	return *this;
 }
 
@@ -96,7 +97,7 @@ Calculator& Calculator::operator=(Calculator cOther){
 //
 // Returned:    None
 //***************************************************************************
-Calculator::~Calculator() {
+Calculator::~Calculator () {
 	if (nullptr != mpRunningTotal) {
 		delete mpRunningTotal;
 	}
@@ -113,13 +114,11 @@ Calculator::~Calculator() {
 //
 // Returned:    The new running total
 //***************************************************************************
-Calculator& Calculator::operator+=(double rhs){
+Calculator& Calculator::operator+= (double rhs) {
 	if (nullptr == mpRunningTotal) {
-		throw std::invalid_argument("No running total");
+		throw std::invalid_argument ("No running total");
 	}
-
 	*mpRunningTotal += rhs;
-	
 	return *this;
 }
 
@@ -135,8 +134,7 @@ Calculator& Calculator::operator+=(double rhs){
 //
 // Returned:    The new running total
 //***************************************************************************
-Calculator& Calculator::operator+=(const std::string &rcKey){
-
+Calculator& Calculator::operator+= (const std::string& rcKey) {
 	*this += (*this)[rcKey];
 	return *this;
 }
@@ -152,13 +150,11 @@ Calculator& Calculator::operator+=(const std::string &rcKey){
 //
 // Returned:    The new running total
 //***************************************************************************
-Calculator& Calculator::operator+=(const Calculator &rcRHS){
-	if (nullptr == rcRHS.mpRunningTotal ) {
-		throw std::invalid_argument("No running total in RHS");
+Calculator& Calculator::operator+= (const Calculator& rcRHS) {
+	if (nullptr == rcRHS.mpRunningTotal) {
+		throw std::invalid_argument ("No running total in RHS");
 	}
-
 	*this += *rcRHS.mpRunningTotal;
-
 	return *this;
 }
 
@@ -174,7 +170,7 @@ Calculator& Calculator::operator+=(const Calculator &rcRHS){
 //
 // Returned:    updated Calculator
 //***************************************************************************
-Calculator operator+(Calculator cLHS, const Calculator &rcRHS) {
+Calculator operator+ (Calculator cLHS, const Calculator& rcRHS) {
 	cLHS += rcRHS;
 	return cLHS;
 }
@@ -191,7 +187,7 @@ Calculator operator+(Calculator cLHS, const Calculator &rcRHS) {
 //
 // Returned:    updated Calculator
 //***************************************************************************
-Calculator operator+(Calculator cLHS, double rhs){
+Calculator operator+ (Calculator cLHS, double rhs) {
 	cLHS += rhs;
 	return cLHS;
 }
@@ -207,9 +203,9 @@ Calculator operator+(Calculator cLHS, double rhs){
 //
 // Returned:    The current running total
 //***************************************************************************
-double Calculator::operator()() const {
+double Calculator::operator () () const {
 	if (nullptr == mpRunningTotal) {
-		throw std::invalid_argument("No running total");
+		throw std::invalid_argument ("No running total");
 	}
 
 	return *mpRunningTotal;
@@ -226,7 +222,7 @@ double Calculator::operator()() const {
 //
 // Returned:    None
 //***************************************************************************
-void Calculator::clear()  {
+void Calculator::clear () {
 	if (nullptr != mpRunningTotal) {
 		delete mpRunningTotal;
 		mpRunningTotal = nullptr;
@@ -245,12 +241,12 @@ void Calculator::clear()  {
 //
 // Returned:    The current value of the variable
 //***************************************************************************
-const double& Calculator::operator[](const std::string &rcKey) const {
+const double& Calculator::operator[] (const std::string& rcKey) const {
 	if (!mcVars.contains (rcKey)) {
-		throw std::range_error("Variable " + rcKey + " not found!");
+		throw std::range_error ("Variable " + rcKey + " not found!");
 	}
 
-	return mcVars.at(rcKey);
+	return mcVars.at (rcKey);
 }
 
 //***************************************************************************
@@ -264,7 +260,7 @@ const double& Calculator::operator[](const std::string &rcKey) const {
 //
 // Returned:    The current running total
 //***************************************************************************
-double Calculator::store(const std::string &rcKey) {
+double Calculator::store (const std::string& rcKey) {
 	mcVars[rcKey] = (*this)();
 	return mcVars[rcKey];
 }

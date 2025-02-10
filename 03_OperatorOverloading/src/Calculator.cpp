@@ -203,7 +203,7 @@ Calculator operator+ (Calculator cLHS, double rhs) {
 //
 // Returned:    The current running total
 //***************************************************************************
-double Calculator::operator () () const {
+double Calculator::operator() () const {
 	if (nullptr == mpRunningTotal) {
 		throw std::invalid_argument ("No running total");
 	}

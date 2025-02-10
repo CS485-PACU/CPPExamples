@@ -28,7 +28,7 @@ public:
 	Calculator& operator+= (const std::string& rcKey);
 	Calculator& operator+= (const Calculator& rcRHS);
 
-	double operator () () const; // function call operator
+	double operator() () const; // function call operator
 
 	void clear ();
 
